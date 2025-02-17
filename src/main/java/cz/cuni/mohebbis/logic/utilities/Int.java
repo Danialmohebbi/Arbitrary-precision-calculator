@@ -1,4 +1,4 @@
-package cz.cuni.mohebbis.logic;
+package cz.cuni.mohebbis.logic.utilities;
 
 public class Int {
     public static boolean isInteger(String s){

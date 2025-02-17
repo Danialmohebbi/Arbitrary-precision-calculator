@@ -2,7 +2,7 @@ package cz.cuni.mohebbis.logic.expressions;
 
 
 import cz.cuni.mohebbis.logic.IExpression;
-import cz.cuni.mohebbis.logic.IExpressionVisiter;
+import cz.cuni.mohebbis.logic.interfaces.IExpressionVisiter;
 
 public class PlusExpression extends IExpression{
     public IExpression left;
@@ -13,7 +13,6 @@ public class PlusExpression extends IExpression{
         this.right = right;
     }
 
-    @Override
     public void Accept(IExpressionVisiter visitor) {
         visitor.Visit(this);
     }

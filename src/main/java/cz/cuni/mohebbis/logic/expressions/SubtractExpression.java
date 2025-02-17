@@ -1,7 +1,7 @@
 package cz.cuni.mohebbis.logic.expressions;
 
 import cz.cuni.mohebbis.logic.IExpression;
-import cz.cuni.mohebbis.logic.IExpressionVisiter;
+import cz.cuni.mohebbis.logic.interfaces.IExpressionVisiter;
 
 public class SubtractExpression extends IExpression  {
     public IExpression left;
@@ -14,7 +14,6 @@ public class SubtractExpression extends IExpression  {
     }
 
 
-    @Override
     public void Accept(IExpressionVisiter visitor) {
         visitor.Visit(this);
     }

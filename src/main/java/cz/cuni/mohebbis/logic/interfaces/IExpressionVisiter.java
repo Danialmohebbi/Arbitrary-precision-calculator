@@ -1,4 +1,4 @@
-package cz.cuni.mohebbis.logic;
+package cz.cuni.mohebbis.logic.interfaces;
 
 
 import cz.cuni.mohebbis.logic.expressions.*;

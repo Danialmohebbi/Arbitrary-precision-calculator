@@ -1,9 +1,8 @@
 package cz.cuni.mohebbis.logic.visitors;
 
-import cz.cuni.mohebbis.logic.IExpression;
-import cz.cuni.mohebbis.logic.IExpressionVisiter;
 import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
 import cz.cuni.mohebbis.logic.expressions.*;
+import cz.cuni.mohebbis.logic.interfaces.IExpressionVisiter;
 
 
 public class IntEvaluation implements IExpressionVisiter {

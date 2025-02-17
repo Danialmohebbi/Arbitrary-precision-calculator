@@ -6,7 +6,7 @@ import jdk.jshell.spi.ExecutionControl;
 import java.io.IOException;
 import java.io.StringReader;
 
-import static cz.cuni.mohebbis.logic.Int.isInteger;
+import static cz.cuni.mohebbis.logic.utilities.Int.isInteger;
 
 public class ExpressionParser {
     private String[] _tokens;
