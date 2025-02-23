@@ -26,7 +26,6 @@ public class IntEvaluation implements IExpressionVisiter {
 
         expr.right.Accept(this);
         int tempRight = _result;
-        System.out.println(tempLeft + " " + tempRight);
         _result = tempLeft + tempRight;
     }
 

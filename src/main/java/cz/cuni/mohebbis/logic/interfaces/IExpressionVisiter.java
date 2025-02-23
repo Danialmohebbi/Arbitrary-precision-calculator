@@ -8,6 +8,6 @@ public interface IExpressionVisiter {
     void Visit(UnaryExpression unary);
     void Visit(PlusExpression plus);
     void Visit(MultiplyExpression multiply);
-void Visit(DivisionExpression division);
-     void Visit(SubtractExpression subtract);
+    void Visit(DivisionExpression division);
+    void Visit(SubtractExpression subtract);
 }
