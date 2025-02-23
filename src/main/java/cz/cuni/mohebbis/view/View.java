@@ -18,6 +18,8 @@ public class View {
     public void processInput() {
         Scanner scanner = new Scanner(System.in);
         try {
+
+            String type = "";
             while (true) {
                 System.out.print("Enter expression (or 'exit' to quit): ");
                 if (!scanner.hasNextLine()) {
@@ -31,20 +33,26 @@ public class View {
                     break;
                 }
 
+                if (input.startsWith("Type: ")) {
+                    type = input.split("\\s+")[1];
+                    continue;
+                }
+
                 if (input.startsWith("=")) {
                     try {
-                        int outputResult = controller.ProcessInput(input, this);
-                        System.out.println("Result: " + outputResult);
+                        ExecuteCorrectType(type,input);
                     } catch (Exception e) {
                         System.out.println("Error processing input: " + e.getMessage());
                     }
                 }else if (input.startsWith("Process File: ")) {
                     String path = input.split("\\s+")[2].trim();
+                    type = input.split("\\s+")[3].trim();
                     Path filePath = Paths.get(path);
                     if (!Files.exists(filePath)) {
                         System.out.println("File does not exist: " + path);
                     }
-                    controller.ProcessFile(filePath,this,true);
+                    controller.ProcessFile(filePath,this,type);
+                    type = "";
                 }
                 else {
                     System.out.println("Incorrect command. Please start your input with '='.");
@@ -55,5 +63,12 @@ public class View {
         } finally {
             scanner.close();
         }
+    }
+    private void ExecuteCorrectType(String type,String input) throws IOException {
+        if (type.equals("int")) {
+            int outputResult = controller.ProcessIntegerInput(input, this);
+            System.out.println("Result: " + outputResult);
+        }
+
     }
 }

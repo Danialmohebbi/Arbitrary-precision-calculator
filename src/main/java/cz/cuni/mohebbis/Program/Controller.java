@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 
 
 public class Controller {
-    public int ProcessInput(String input, View view) throws IOException, FormatException, DivisionByZeroException {
+
+    public int ProcessIntegerInput(String input, View view) throws IOException, FormatException, DivisionByZeroException {
         input = input.substring(1).trim();
         ExpressionParser parser = new ExpressionParser();
         IntEvaluation eval = new IntEvaluation();
@@ -31,18 +32,16 @@ public class Controller {
         IExpression expression = parser.parse();
         expression.Accept(eval);
         return eval.GetResult();
-
     }
-    public void ProcessFile(Path inputFile, View view,boolean processingFile) throws IOException {
-        Path outputPath = Paths.get("output.txt"); // New output file
+    public void ProcessFile(Path inputFile, View view,String type) throws IOException {
+        Path outputPath = Paths.get((new File(String.valueOf(inputFile)).getName() + "_output.txt")); // New output file
 
         List<String> lines = Files.readAllLines(inputFile);
         List<String> processedLines = lines.parallelStream()
                 .map(line -> {
                     try {
-                        return processLine(line,view);
+                        return processLine(line,view,type);
                     } catch (Exception e) {
-                        System.out.println();
                         return e.getMessage();
                     }
                 })
@@ -51,8 +50,11 @@ public class Controller {
         System.out.println("File processing completed. Output written to: " + outputPath);
     }
 
-    private String processLine(String line,View view) throws IOException, FormatException, DivisionByZeroException {
-        int result = ProcessInput(line,view);
-        return "Result: " + result;
+    private String processLine(String line,View view,String type) throws IOException, FormatException, DivisionByZeroException {
+        if (type.equals("int")) {
+            int result = ProcessIntegerInput(line,view);
+            return "Result: " + result;
+        }
+        return "";
     }
 }
