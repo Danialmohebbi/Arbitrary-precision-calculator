@@ -44,7 +44,7 @@ public class View {
                     if (!Files.exists(filePath)) {
                         System.out.println("File does not exist: " + path);
                     }
-                    controller.ProcessFile(filePath,this);
+                    controller.ProcessFile(filePath,this,true);
                 }
                 else {
                     System.out.println("Incorrect command. Please start your input with '='.");

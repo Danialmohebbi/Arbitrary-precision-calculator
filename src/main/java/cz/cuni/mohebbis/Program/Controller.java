@@ -2,6 +2,8 @@ package cz.cuni.mohebbis.Program;
 
 import cz.cuni.mohebbis.logic.ExpressionParser;
 import cz.cuni.mohebbis.logic.IExpression;
+import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
+import cz.cuni.mohebbis.logic.exceptions.FormatException;
 import cz.cuni.mohebbis.logic.visitors.IntEvaluation;
 import cz.cuni.mohebbis.view.View;
 
@@ -16,17 +18,22 @@ import java.util.stream.Collectors;
 
 
 public class Controller {
-    public int ProcessInput(String input, View view) throws IOException {
+    public int ProcessInput(String input, View view) throws IOException, FormatException, DivisionByZeroException {
         input = input.substring(1).trim();
         ExpressionParser parser = new ExpressionParser();
         IntEvaluation eval = new IntEvaluation();
         parser.ParseExpression(input);
+
+        //if (!parser.IsDone()){
+        //    throw new FormatException("Invalid Formula");
+        //}
+
         IExpression expression = parser.parse();
         expression.Accept(eval);
         return eval.GetResult();
 
     }
-    public void ProcessFile(Path inputFile, View view) throws IOException {
+    public void ProcessFile(Path inputFile, View view,boolean processingFile) throws IOException {
         Path outputPath = Paths.get("output.txt"); // New output file
 
         List<String> lines = Files.readAllLines(inputFile);
@@ -34,8 +41,9 @@ public class Controller {
                 .map(line -> {
                     try {
                         return processLine(line,view);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    } catch (Exception e) {
+                        System.out.println();
+                        return e.getMessage();
                     }
                 })
                 .toList();
@@ -43,7 +51,7 @@ public class Controller {
         System.out.println("File processing completed. Output written to: " + outputPath);
     }
 
-    private String processLine(String line,View view) throws IOException {
+    private String processLine(String line,View view) throws IOException, FormatException, DivisionByZeroException {
         int result = ProcessInput(line,view);
         return "Result: " + result;
     }

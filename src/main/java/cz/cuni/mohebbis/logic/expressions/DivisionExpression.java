@@ -2,6 +2,7 @@ package cz.cuni.mohebbis.logic.expressions;
 
 
 import cz.cuni.mohebbis.logic.IExpression;
+import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
 import cz.cuni.mohebbis.logic.interfaces.IExpressionVisiter;
 
 public class DivisionExpression extends IExpression{
@@ -14,7 +15,7 @@ public class DivisionExpression extends IExpression{
         this.left = left;
         this.right = right;
     }
-    public void Accept(IExpressionVisiter visitor) {
+    public void Accept(IExpressionVisiter visitor) throws DivisionByZeroException {
         visitor.Visit(this);
     }
 

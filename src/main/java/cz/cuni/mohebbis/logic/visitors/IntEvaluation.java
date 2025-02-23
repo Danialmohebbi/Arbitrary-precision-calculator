@@ -39,7 +39,7 @@ public class IntEvaluation implements IExpressionVisiter {
         _result = tempLeft - tempRight;
     }
 
-    public void Visit(DivisionExpression expr){
+    public void Visit(DivisionExpression expr) throws DivisionByZeroException {
         expr.left.Accept(this);
         int tempLeft = _result;
 
