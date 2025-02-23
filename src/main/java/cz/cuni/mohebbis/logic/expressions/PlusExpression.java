@@ -7,7 +7,6 @@ import cz.cuni.mohebbis.logic.interfaces.IExpressionVisiter;
 public class PlusExpression extends IExpression{
     public IExpression left;
     public IExpression right;
-    double _value;
     public PlusExpression(IExpression left, IExpression right) {
         this.left = left;
         this.right = right;
