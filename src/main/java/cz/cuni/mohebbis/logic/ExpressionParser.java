@@ -10,21 +10,21 @@ import java.util.concurrent.ForkJoinPool;
 
 import static cz.cuni.mohebbis.logic.utilities.Int.isInteger;
 
-public class ExpressionParser {
+public class ExpressionParser<T> {
     private String[] _tokens;
 
     private int _index;
+    private Class<T> type;
 
-
-    public void ParseExpression(String expression) {
-        _tokens = expression.trim().split("\\s+");
+    public void ParseExpression(String expression,Class<T> type) {
+        _tokens = expression.trim().split("\\s+");this.type=type;
     }
 
     public boolean IsDone() throws IOException {
         return _index >= _tokens.length;
     }
 
-    public IExpression parse() throws IOException, FormatException {
+    public IExpression<T> parse() throws IOException, FormatException {
 
         if (_index >= _tokens.length) {
             throw new FormatException("Invalid Formula");
@@ -38,31 +38,36 @@ public class ExpressionParser {
             throw new FormatException("Invalid Formula: Expression must start with an operator");
         }
 
+
         if (isInteger(token)) {
-            return new ConstantExpression(Integer.parseInt(token));
+            if (type == Integer.class) {
+                return (IExpression<T>) new ConstantExpression<Integer>(Integer.parseInt(token));
+            }else {
+                throw new IllegalArgumentException("Unsupported type: " + type);
+            }
         }
 
-        IExpression left, right;
+        IExpression<T> left, right;
 
         switch (token) {
             case "+":
                 left = parse();
                 right = parse();
-                return new PlusExpression(left, right);
+                return new PlusExpression<T>(left, right);
             case "-":
                 left = parse();
                 right = parse();
-                return new SubtractExpression(left, right);
+                return new SubtractExpression<T>(left, right);
             case "*":
                 left = parse();
                 right = parse();
-                return new MultiplyExpression(left, right);
+                return new MultiplyExpression<T>(left, right);
             case "/":
                 left = parse();
                 right = parse();
-                return new DivisionExpression(left, right);
+                return new DivisionExpression<T>(left, right);
             case "~":
-                return new UnaryExpression(parse());
+                return new UnaryExpression<T>(parse());
 
             default:
                 throw new FormatException("Invalid Formula");

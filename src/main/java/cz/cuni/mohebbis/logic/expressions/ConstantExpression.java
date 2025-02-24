@@ -3,15 +3,15 @@ package cz.cuni.mohebbis.logic.expressions;
 import cz.cuni.mohebbis.logic.IExpression;
 import cz.cuni.mohebbis.logic.interfaces.IExpressionVisiter;
 
-public class ConstantExpression extends IExpression {
-    public double _value;
-    public ConstantExpression(double value) {
+public class ConstantExpression<T> extends IExpression<T> {
+    public T _value;
+    public ConstantExpression(T value) {
         _value = value;
     }
 
 
 
-    public void Accept(IExpressionVisiter visitor) {
+    public void Accept(IExpressionVisiter<T> visitor) {
         visitor.Visit(this);
     }
 }

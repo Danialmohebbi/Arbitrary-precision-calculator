@@ -4,11 +4,11 @@ package cz.cuni.mohebbis.logic.interfaces;
 import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
 import cz.cuni.mohebbis.logic.expressions.*;
 
-public interface IExpressionVisiter {
-    void Visit(ConstantExpression constant);
-    void Visit(UnaryExpression unary);
-    void Visit(PlusExpression plus);
-    void Visit(MultiplyExpression multiply);
-    void Visit(DivisionExpression division) throws DivisionByZeroException;
-    void Visit(SubtractExpression subtract);
+public interface IExpressionVisiter<T> {
+    void Visit(ConstantExpression<T> constant);
+    void Visit(UnaryExpression<T> unary);
+    void Visit(PlusExpression<T> plus);
+    void Visit(MultiplyExpression<T> multiply);
+    void Visit(DivisionExpression<T> division) throws DivisionByZeroException;
+    void Visit(SubtractExpression<T> subtract);
 }

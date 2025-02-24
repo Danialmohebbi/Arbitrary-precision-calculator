@@ -5,16 +5,16 @@ import cz.cuni.mohebbis.logic.IExpression;
 import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
 import cz.cuni.mohebbis.logic.interfaces.IExpressionVisiter;
 
-public class DivisionExpression extends IExpression{
-    public IExpression left;
-    public IExpression right;
+public class DivisionExpression<T> extends IExpression<T>{
+    public IExpression<T> left;
+    public IExpression<T> right;
 
 
-    public DivisionExpression(IExpression left, IExpression right) {
+    public DivisionExpression(IExpression<T> left, IExpression<T> right) {
         this.left = left;
         this.right = right;
     }
-    public void Accept(IExpressionVisiter visitor) throws DivisionByZeroException {
+    public void Accept(IExpressionVisiter<T> visitor) throws DivisionByZeroException {
         visitor.Visit(this);
     }
 

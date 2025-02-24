@@ -5,22 +5,22 @@ import cz.cuni.mohebbis.logic.expressions.*;
 import cz.cuni.mohebbis.logic.interfaces.IExpressionVisiter;
 
 
-public class IntEvaluation implements IExpressionVisiter {
+public class IntEvaluation implements IExpressionVisiter<Integer> {
     private int _result;
 
     public int GetResult() {
         return _result;
     }
-    public void Visit(ConstantExpression exp) {
+    public void Visit(ConstantExpression<Integer> exp) {
         _result = (int) exp._value;
     }
 
-    public void Visit(UnaryExpression exp) {
+    public void Visit(UnaryExpression<Integer> exp) {
         exp._operand.Accept(this);
         _result = -_result;
     }
 
-    public void Visit(PlusExpression expr){
+    public void Visit(PlusExpression<Integer> expr){
         expr.left.Accept(this);
         int tempLeft = _result;
 
@@ -29,7 +29,7 @@ public class IntEvaluation implements IExpressionVisiter {
         _result = tempLeft + tempRight;
     }
 
-    public void Visit(SubtractExpression expr){
+    public void Visit(SubtractExpression<Integer> expr){
         expr.left.Accept(this);
         int tempLeft = _result;
 
@@ -39,7 +39,7 @@ public class IntEvaluation implements IExpressionVisiter {
         _result = tempLeft - tempRight;
     }
 
-    public void Visit(DivisionExpression expr) throws DivisionByZeroException {
+    public void Visit(DivisionExpression<Integer> expr) throws DivisionByZeroException {
         expr.left.Accept(this);
         int tempLeft = _result;
 
@@ -52,7 +52,7 @@ public class IntEvaluation implements IExpressionVisiter {
         _result = tempLeft / tempRight;
     }
 
-    public void Visit(MultiplyExpression expr){
+    public void Visit(MultiplyExpression<Integer> expr){
         expr.left.Accept(this);
         int tempLeft = _result;
 

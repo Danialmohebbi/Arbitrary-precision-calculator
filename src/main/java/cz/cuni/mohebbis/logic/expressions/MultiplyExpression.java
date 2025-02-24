@@ -3,16 +3,16 @@ package cz.cuni.mohebbis.logic.expressions;
 import cz.cuni.mohebbis.logic.IExpression;
 import cz.cuni.mohebbis.logic.interfaces.IExpressionVisiter;
 
-public class MultiplyExpression extends IExpression{
-    public IExpression left;
-    public IExpression right;
+public class MultiplyExpression<T> extends IExpression<T>{
+    public IExpression<T> left;
+    public IExpression<T> right;
 
-    public MultiplyExpression(IExpression left, IExpression right) {
+    public MultiplyExpression(IExpression<T> left, IExpression<T> right) {
         this.left = left;
         this.right = right;
     }
 
-    public void Accept(IExpressionVisiter visitor) {
+    public void Accept(IExpressionVisiter<T> visitor) {
         visitor.Visit(this);
     }
 

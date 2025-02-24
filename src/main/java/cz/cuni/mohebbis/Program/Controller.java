@@ -21,15 +21,15 @@ public class Controller {
 
     public int ProcessIntegerInput(String input, View view) throws IOException, FormatException, DivisionByZeroException {
         input = input.substring(1).trim();
-        ExpressionParser parser = new ExpressionParser();
+        ExpressionParser<Integer> parser = new ExpressionParser<Integer>();
         IntEvaluation eval = new IntEvaluation();
-        parser.ParseExpression(input);
+        parser.ParseExpression(input,Integer.class);
 
         //if (!parser.IsDone()){
         //    throw new FormatException("Invalid Formula");
         //}
 
-        IExpression expression = parser.parse();
+        IExpression<Integer> expression = parser.parse();
         expression.Accept(eval);
         return eval.GetResult();
     }
