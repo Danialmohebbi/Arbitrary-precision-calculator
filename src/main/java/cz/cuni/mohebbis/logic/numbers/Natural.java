@@ -86,7 +86,24 @@ public class Natural {
         return result;
     }
 
+    public Natural MultiplyByTwo() {
+        return this.Add(this);
+    }
 
+    public Natural Multiply(Natural N) {
+        Natural result = new Natural();
+
+        for (int block = N.blocks.length - 1; block >= 0; --block) {
+            for (int offset = 15; offset >= 0; --offset) {
+
+                result = result.MultiplyByTwo();
+                if (((N.blocks[block] >> offset) & 1) == 1) {
+                    result = result.Add(this);
+                }
+            }
+        }
+        return result;
+    }
 
 
 }
