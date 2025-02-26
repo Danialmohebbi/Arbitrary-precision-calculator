@@ -149,6 +149,7 @@ public class Natural {
         }
         else{
             sub.blocks = subResult;
+            sub.CorrectSize();
         }
 
         return sub;
@@ -171,5 +172,74 @@ public class Natural {
 
         return false;
     }
+
+    private void CorrectSize() {
+        int k = this.blocks.length - 1;
+        while ((k >= 0) && (this.blocks[k] == 0)) {
+            k--;
+        }
+        int size = (k == -1) ? 1 : (k + 1);
+        int[] new_blocks = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            new_blocks[i] = this.blocks[i];
+        }
+
+        this.blocks = new_blocks;
+    }
+    public boolean IsZero() {
+            return (this.blocks.length == 1) && (blocks[0] == 0);
+
+    }
+
+
+    public Natural[] Divide(Natural N) {
+        if (N.IsZero()) {
+            throw new DivisionByZeroException();
+        }
+        Natural quotient = new Natural();
+        quotient.blocks = new int[this.blocks.length];
+        Natural remainder = new Natural();
+
+        for (int block = this.blocks.length - 1; block >= 0; --block) {
+            for (int offset = 15; offset >= 0; offset--) {
+                int bit = (this.blocks[block] >> offset) & 1;
+                remainder = remainder.MultiplyByTwo();
+                remainder.blocks[0] |= bit;
+
+                if (!(N.GreaterThan(remainder))) {
+                    remainder = remainder.Subtract(N);
+                    quotient.blocks[block] |= ((int)1 << offset);
+                }
+            }
+        }
+
+        quotient.CorrectSize();
+
+        return new Natural[] {quotient,remainder};
+
+    }
+
+    public String ToString() {
+        Natural TEN = new Natural(10);
+        String s = "";
+
+        Natural n = this;
+        if (n.IsZero()) {
+            return "0";
+        }
+
+        while (!n.IsZero()) {
+            Natural[] result = n.Divide(TEN);
+            n = result[0];
+            Natural reminder = result[1];
+            char digit = (char)((int)'0' + (int)(reminder.blocks[0]));
+            s = digit + s;
+        }
+
+
+        return s;
+    }
+
 
 }
