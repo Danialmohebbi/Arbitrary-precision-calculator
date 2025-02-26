@@ -16,7 +16,7 @@ public class Natural {
     public Natural(){
         this.blocks = new int[1];
     }
-    
+
 
     public int safeAdd(int a, int b) {
         long sum = (long) a + b;
@@ -154,6 +154,22 @@ public class Natural {
         return sub;
     }
 
+    public boolean GreaterThan(Natural other) {
+        if (this.blocks.length > other.blocks.length) {
+            return true;
+        } else if (this.blocks.length < other.blocks.length) {
+            return false;
+        }
 
+        for (int i = this.blocks.length - 1; i >= 0; i--) {
+            if (this.blocks[i] > other.blocks[i]) {
+                return true;
+            } else if (this.blocks[i] < other.blocks[i]) {
+                return false;
+            }
+        }
+
+        return false;
+    }
 
 }
