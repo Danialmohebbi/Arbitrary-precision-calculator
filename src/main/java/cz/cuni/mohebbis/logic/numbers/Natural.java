@@ -113,7 +113,7 @@ public class Natural {
     }
 
 
-    public Natural Subtract(Natural N) {
+    public Natural Subtract(Natural N,boolean[] negative) {
         Natural max, min;
         if (this.blocks.length >= N.blocks.length) {
             max = this;
@@ -146,10 +146,12 @@ public class Natural {
         Natural sub = new Natural();
 
         if (borrow) {
+            negative[0] = true;
         }
         else{
             sub.blocks = subResult;
             sub.CorrectSize();
+            negative[0] = false;
         }
 
         return sub;
@@ -215,7 +217,7 @@ public class Natural {
                     remainder.blocks[0] |= bit;
 
                     if (!(N.GreaterThan(remainder))) {
-                        remainder = remainder.Subtract(N);
+                        remainder = remainder.Subtract(N,new boolean[1]);
                         quotient.blocks[block] |= ((int)1 << offset);
                     }
                 }

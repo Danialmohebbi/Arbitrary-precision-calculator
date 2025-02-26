@@ -36,7 +36,7 @@ public class NaturalEvaluation implements IExpressionVisiter<Natural> {
         expr.right.Accept(this);
         Natural tempRight = _result;
 
-        _result = tempLeft.Subtract(tempRight);
+        _result = tempLeft.Subtract(tempRight,new boolean[1]);
     }
     public void Visit(DivisionExpression<Natural> expr) throws DivisionByZeroException {
         expr.left.Accept(this);
