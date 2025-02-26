@@ -16,14 +16,7 @@ public class Natural {
     public Natural(){
         this.blocks = new int[1];
     }
-
-    public boolean isOverflow(int a,int b) {
-        int sum = a+b;
-        if (a > 0 && b > 0 && sum < 0) {
-            return true;
-        }
-        return sum < a;
-    }
+    
 
     public int safeAdd(int a, int b) {
         long sum = (long) a + b;
@@ -104,6 +97,63 @@ public class Natural {
         }
         return result;
     }
+
+    public int safeSubtract(int a, int b) {
+        long result = (long) a - b;
+        return (int) (result & 0x7FFFFFFF);
+    }
+
+    public boolean willSubtractionOverflow(int a, int b) {
+        try {
+            int result = Math.subtractExact(a, b);
+            return result < 0;
+        } catch (ArithmeticException e) {
+            return true;
+        }
+    }
+
+
+    public Natural Subtract(Natural N) {
+        Natural max, min;
+        if (this.blocks.length >= N.blocks.length) {
+            max = this;
+            min = N;
+        }
+        else {
+            max = N;
+            min = this;
+        }
+
+
+        int[] subResult = new int[max.blocks.length];
+        boolean borrow = false;
+
+        for (int i = 0; i < max.blocks.length; i++) {
+            boolean incoming = borrow;
+            int blockSum = 0;
+            blockSum = safeSubtract(max.blocks[i], (i < min.blocks.length) ? min.blocks[i] : 0);
+            if (willSubtractionOverflow(max.blocks[i], (i < min.blocks.length) ? min.blocks[i] : 0)) {
+                borrow = true;
+            }
+            if (incoming) {
+
+                borrow = willSubtractionOverflow(blockSum, 1);
+                blockSum = safeSubtract(1, blockSum);
+            }
+            subResult[i] = blockSum;
+        }
+
+        Natural sub = new Natural();
+
+        if (borrow) {
+        }
+        else{
+            sub.blocks = subResult;
+        }
+
+        return sub;
+    }
+
 
 
 }
