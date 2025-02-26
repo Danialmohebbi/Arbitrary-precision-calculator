@@ -4,7 +4,9 @@ import cz.cuni.mohebbis.logic.ExpressionParser;
 import cz.cuni.mohebbis.logic.IExpression;
 import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
 import cz.cuni.mohebbis.logic.exceptions.FormatException;
+import cz.cuni.mohebbis.logic.numbers.Natural;
 import cz.cuni.mohebbis.logic.visitors.IntEvaluation;
+import cz.cuni.mohebbis.logic.visitors.NaturalEvaluation;
 import cz.cuni.mohebbis.view.View;
 
 import java.io.File;
@@ -33,6 +35,17 @@ public class Controller {
         expression.Accept(eval);
         return eval.GetResult();
     }
+
+    public Natural ProcessNaturalInput(String input, View view) throws IOException, FormatException {
+        input = input.substring(1).trim();
+        ExpressionParser<Natural> parser = new ExpressionParser<Natural>();
+        NaturalEvaluation eval = new NaturalEvaluation();
+        parser.ParseExpression(input,Natural.class);
+
+        IExpression<Natural> expression = parser.parse();
+        expression.Accept(eval);
+        return eval.GetResult();
+    }
     public void ProcessFile(Path inputFile, View view,String type) throws IOException {
         Path outputPath = Paths.get((new File(String.valueOf(inputFile)).getName() + "_output.txt")); // New output file
 
@@ -54,6 +67,9 @@ public class Controller {
         if (type.equals("int")) {
             int result = ProcessIntegerInput(line,view);
             return "Result: " + result;
+        }else if (type.equals("natural")) {
+            Natural result = ProcessNaturalInput(line,view);
+            return "Result: " + result.ToString();
         }
         return "";
     }

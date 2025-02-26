@@ -87,7 +87,7 @@ public class Natural {
         Natural result = new Natural();
 
         for (int block = N.blocks.length - 1; block >= 0; --block) {
-            for (int offset = 15; offset >= 0; --offset) {
+            for (int offset = 31; offset >= 0; --offset) {
 
                 result = result.MultiplyByTwo();
                 if (((N.blocks[block] >> offset) & 1) == 1) {
@@ -181,7 +181,7 @@ public class Natural {
         int size = (k == -1) ? 1 : (k + 1);
         int[] new_blocks = new int[size];
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; ++i) {
             new_blocks[i] = this.blocks[i];
         }
 
@@ -192,32 +192,39 @@ public class Natural {
 
     }
 
+    /* Property that determines whether a given natural is equal to
+    one. */
+    public boolean IsOne (){
+            return (this.blocks.length == 1) && (blocks[0] == 1);
+
+    }
 
     public Natural[] Divide(Natural N) {
         if (N.IsZero()) {
             throw new DivisionByZeroException();
         }
-        Natural quotient = new Natural();
-        quotient.blocks = new int[this.blocks.length];
-        Natural remainder = new Natural();
+        else {
+            Natural quotient = new Natural();
+            quotient.blocks = new int[this.blocks.length];
+            Natural remainder = new Natural();
 
-        for (int block = this.blocks.length - 1; block >= 0; --block) {
-            for (int offset = 15; offset >= 0; offset--) {
-                int bit = (this.blocks[block] >> offset) & 1;
-                remainder = remainder.MultiplyByTwo();
-                remainder.blocks[0] |= bit;
+            for (int block = this.blocks.length - 1; block >= 0; --block) {
+                for (int offset = 30; offset >= 0; --offset) {
+                    int bit = (this.blocks[block] >> offset) & 1;
+                    remainder = remainder.MultiplyByTwo();
+                    remainder.blocks[0] |= bit;
 
-                if (!(N.GreaterThan(remainder))) {
-                    remainder = remainder.Subtract(N);
-                    quotient.blocks[block] |= ((int)1 << offset);
+                    if (!(N.GreaterThan(remainder))) {
+                        remainder = remainder.Subtract(N);
+                        quotient.blocks[block] |= ((int)1 << offset);
+                    }
                 }
             }
+
+            quotient.CorrectSize();
+
+            return new Natural[] {quotient,remainder};
         }
-
-        quotient.CorrectSize();
-
-        return new Natural[] {quotient,remainder};
-
     }
 
     public String ToString() {
@@ -232,8 +239,8 @@ public class Natural {
         while (!n.IsZero()) {
             Natural[] result = n.Divide(TEN);
             n = result[0];
-            Natural reminder = result[1];
-            char digit = (char)((int)'0' + (int)(reminder.blocks[0]));
+            Natural r = result[1];
+            char digit = (char)((int)'0' + (int)(r.blocks[0]));
             s = digit + s;
         }
 

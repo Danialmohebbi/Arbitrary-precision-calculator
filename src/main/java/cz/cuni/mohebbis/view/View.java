@@ -1,6 +1,7 @@
 package cz.cuni.mohebbis.view;
 
 import cz.cuni.mohebbis.Program.Controller;
+import cz.cuni.mohebbis.logic.numbers.Natural;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,6 +43,7 @@ public class View {
                     try {
                         ExecuteCorrectType(type,input);
                     } catch (Exception e) {
+                        e.printStackTrace();
                         System.out.println("Error processing input: " + e.getMessage());
                     }
                 }else if (input.startsWith("Process File: ")) {
@@ -68,6 +70,9 @@ public class View {
         if (type.equals("int")) {
             int outputResult = controller.ProcessIntegerInput(input, this);
             System.out.println("Result: " + outputResult);
+        }else if (type.equals("natural")) {
+            Natural outputResult = controller.ProcessNaturalInput(input, this);
+            System.out.println("Result: " + outputResult.ToString());
         }
 
     }

@@ -2,6 +2,7 @@ package cz.cuni.mohebbis.logic;
 
 import cz.cuni.mohebbis.logic.exceptions.FormatException;
 import cz.cuni.mohebbis.logic.expressions.*;
+import cz.cuni.mohebbis.logic.numbers.Natural;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.io.IOException;
@@ -42,6 +43,8 @@ public class ExpressionParser<T> {
         if (isInteger(token)) {
             if (type == Integer.class) {
                 return (IExpression<T>) new ConstantExpression<Integer>(Integer.parseInt(token));
+            }else if (type == Natural.class){
+                return (IExpression<T>) new ConstantExpression<Natural>(new Natural(Integer.parseInt(token)));
             }else {
                 throw new IllegalArgumentException("Unsupported type: " + type);
             }
