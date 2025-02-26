@@ -45,6 +45,9 @@ public class ExpressionParser<T> {
                 return (IExpression<T>) new ConstantExpression<Integer>(Integer.parseInt(token));
             }else if (type == Natural.class){
                 return (IExpression<T>) new ConstantExpression<Natural>(new Natural(Integer.parseInt(token)));
+            }else if(type == cz.cuni.mohebbis.logic.numbers.Integer.class){
+                cz.cuni.mohebbis.logic.numbers.Integer a = new cz.cuni.mohebbis.logic.numbers.Integer(false,new Natural(Integer.parseInt(token)));
+                return (IExpression<T>) new ConstantExpression<cz.cuni.mohebbis.logic.numbers.Integer>(a);
             }else {
                 throw new IllegalArgumentException("Unsupported type: " + type);
             }

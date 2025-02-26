@@ -5,7 +5,9 @@ import cz.cuni.mohebbis.logic.IExpression;
 import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
 import cz.cuni.mohebbis.logic.exceptions.FormatException;
 import cz.cuni.mohebbis.logic.numbers.Natural;
+import cz.cuni.mohebbis.logic.numbers.Integer;
 import cz.cuni.mohebbis.logic.visitors.IntEvaluation;
+import cz.cuni.mohebbis.logic.visitors.IntegerEvaluation;
 import cz.cuni.mohebbis.logic.visitors.NaturalEvaluation;
 import cz.cuni.mohebbis.view.View;
 
@@ -21,17 +23,17 @@ import java.util.stream.Collectors;
 
 public class Controller {
 
-    public int ProcessIntegerInput(String input, View view) throws IOException, FormatException, DivisionByZeroException {
+    public int ProcessIntInput(String input, View view) throws IOException, FormatException, DivisionByZeroException {
         input = input.substring(1).trim();
-        ExpressionParser<Integer> parser = new ExpressionParser<Integer>();
+        ExpressionParser<java.lang.Integer> parser = new ExpressionParser<java.lang.Integer>();
         IntEvaluation eval = new IntEvaluation();
-        parser.ParseExpression(input,Integer.class);
+        parser.ParseExpression(input,java.lang.Integer.class);
 
         //if (!parser.IsDone()){
         //    throw new FormatException("Invalid Formula");
         //}
 
-        IExpression<Integer> expression = parser.parse();
+        IExpression<java.lang.Integer> expression = parser.parse();
         expression.Accept(eval);
         return eval.GetResult();
     }
@@ -43,6 +45,16 @@ public class Controller {
         parser.ParseExpression(input,Natural.class);
 
         IExpression<Natural> expression = parser.parse();
+        expression.Accept(eval);
+        return eval.GetResult();
+    }
+
+    public Integer ProcessIntegerInput(String input,View view) throws IOException,FormatException{
+        input = input.substring(1).trim();
+        ExpressionParser<Integer> parser = new ExpressionParser<Integer>();
+        IntegerEvaluation eval = new IntegerEvaluation();
+        parser.ParseExpression(input,Integer.class);
+        IExpression<Integer> expression = parser.parse();
         expression.Accept(eval);
         return eval.GetResult();
     }
@@ -65,10 +77,13 @@ public class Controller {
 
     private String processLine(String line,View view,String type) throws IOException, FormatException, DivisionByZeroException {
         if (type.equals("int")) {
-            int result = ProcessIntegerInput(line,view);
+            int result = ProcessIntInput(line,view);
             return "Result: " + result;
         }else if (type.equals("natural")) {
             Natural result = ProcessNaturalInput(line,view);
+            return "Result: " + result.ToString();
+        }else if (type.equals("integer")) {
+            Integer result = ProcessIntegerInput(line,view);
             return "Result: " + result.ToString();
         }
         return "";

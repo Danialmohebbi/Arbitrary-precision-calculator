@@ -32,6 +32,7 @@ public class Natural {
         }
     }
 
+
     public Natural Add(Natural N) {
         Natural max, min;
         if (this.blocks.length >= N.blocks.length) {
@@ -85,7 +86,6 @@ public class Natural {
 
     public Natural Multiply(Natural N) {
         Natural result = new Natural();
-
         for (int block = N.blocks.length - 1; block >= 0; --block) {
             for (int offset = 31; offset >= 0; --offset) {
 
@@ -114,6 +114,9 @@ public class Natural {
 
 
     public Natural Subtract(Natural N,boolean[] negative) {
+        if (N.blocks.length > this.blocks.length) {
+            negative[0] = true;
+        }
         Natural max, min;
         if (this.blocks.length >= N.blocks.length) {
             max = this;
@@ -138,24 +141,26 @@ public class Natural {
             if (incoming) {
 
                 borrow = willSubtractionOverflow(blockSum, 1);
-                blockSum = safeSubtract(1, blockSum);
+                blockSum = safeSubtract(blockSum, 1);
             }
             subResult[i] = blockSum;
         }
 
         Natural sub = new Natural();
-
         if (borrow) {
+
             negative[0] = true;
         }
         else{
             sub.blocks = subResult;
             sub.CorrectSize();
-            negative[0] = false;
+
         }
 
         return sub;
     }
+
+
 
     public boolean GreaterThan(Natural other) {
         if (this.blocks.length > other.blocks.length) {
@@ -234,6 +239,7 @@ public class Natural {
         String s = "";
 
         Natural n = this;
+        n.CorrectSize();
         if (n.IsZero()) {
             return "0";
         }

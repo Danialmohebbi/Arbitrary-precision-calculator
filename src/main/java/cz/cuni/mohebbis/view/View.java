@@ -1,6 +1,7 @@
 package cz.cuni.mohebbis.view;
 
 import cz.cuni.mohebbis.Program.Controller;
+import cz.cuni.mohebbis.logic.numbers.Integer;
 import cz.cuni.mohebbis.logic.numbers.Natural;
 
 import java.io.IOException;
@@ -68,10 +69,13 @@ public class View {
     }
     private void ExecuteCorrectType(String type,String input) throws IOException {
         if (type.equals("int")) {
-            int outputResult = controller.ProcessIntegerInput(input, this);
+            int outputResult = controller.ProcessIntInput(input, this);
             System.out.println("Result: " + outputResult);
         }else if (type.equals("natural")) {
             Natural outputResult = controller.ProcessNaturalInput(input, this);
+            System.out.println("Result: " + outputResult.ToString());
+        }else if (type.equals("integer")) {
+            Integer outputResult = controller.ProcessIntegerInput(input, this);
             System.out.println("Result: " + outputResult.ToString());
         }
 
