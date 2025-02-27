@@ -49,7 +49,6 @@ public class Integer {
         }
         else {
             sum.absoluteValue = this.absoluteValue.Add(N.absoluteValue);
-            System.out.println(sum.isNegative);
             sum.isNegative = true;
         }
 
@@ -80,6 +79,7 @@ public class Integer {
         Integer quotient = new Integer();
 
         quotient.absoluteValue = this.absoluteValue.Divide(N)[0];
+
         quotient.isNegative = this.isNegative;
 
         return quotient;
@@ -88,8 +88,11 @@ public class Integer {
         Integer quotient = new Integer();
 
         quotient.absoluteValue = this.absoluteValue.Divide(N.absoluteValue)[0];
-        quotient.isNegative = this.isNegative || N.isNegative;
-
+        if (this.isNegative && N.isNegative) {
+            quotient.isNegative = false;
+        }else {
+            quotient.isNegative = this.isNegative || N.isNegative;
+        }
         return quotient;
     }
 
@@ -108,7 +111,6 @@ public class Integer {
 
     public String ToString() {
         String s = this.absoluteValue.ToString();
-        System.out.println(s);
         if (this.absoluteValue.IsZero()) {
             return "0";
         }

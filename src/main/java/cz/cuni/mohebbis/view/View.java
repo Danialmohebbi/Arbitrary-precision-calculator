@@ -44,7 +44,6 @@ public class View {
                     try {
                         ExecuteCorrectType(type,input);
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println("Error processing input: " + e.getMessage());
                     }
                 }else if (input.startsWith("Process File: ")) {

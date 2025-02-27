@@ -151,11 +151,9 @@ public class Natural {
 
             negative[0] = true;
         }
-        else{
-            sub.blocks = subResult;
-            sub.CorrectSize();
 
-        }
+        sub.blocks = subResult;
+        sub.CorrectSize();
 
         return sub;
     }
@@ -239,7 +237,6 @@ public class Natural {
         String s = "";
 
         Natural n = this;
-        n.CorrectSize();
         if (n.IsZero()) {
             return "0";
         }
