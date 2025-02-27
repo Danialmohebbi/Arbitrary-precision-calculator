@@ -253,5 +253,18 @@ public class Natural {
         return s;
     }
 
+    public static Natural GCD(Natural N, Natural M) {
+        Natural P = N;
+        Natural Q = M;
+
+        while (!Q.IsZero()) {
+            Natural temp = P.Divide(Q)[1];
+            P = Q;
+            Q = temp;
+        }
+
+        return P;
+    }
+
 
 }

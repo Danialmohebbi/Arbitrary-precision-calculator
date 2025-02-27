@@ -14,6 +14,11 @@ public class Integer {
         this.isNegative = negative;
     }
 
+    public Integer(int N) {
+        this.absoluteValue = new Natural(Math.abs(N));
+        this.isNegative = N < 0;
+    }
+
 
     public Integer Add(Integer N) {
         Integer sum = new Integer();
