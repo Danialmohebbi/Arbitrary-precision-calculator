@@ -39,7 +39,6 @@ public class ExpressionParser<T> {
         if (type == Rational.class && token.contains("/")) {
             String[] input = token.split("/");
             Rational r = new Rational(new cz.cuni.mohebbis.logic.numbers.Integer(Integer.parseInt(input[0])),new cz.cuni.mohebbis.logic.numbers.Integer(Integer.parseInt(input[1])));
-            System.out.println(r.ToString());
             return (IExpression<T>) new ConstantExpression<Rational>(r);
         }
         if (isInteger(token)) {
@@ -85,7 +84,7 @@ public class ExpressionParser<T> {
 
     }
     private boolean isOperator(String token) {
-        return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/") || token.equals("~");
+        return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("\\") || token.equals("~");
     }
 
 
