@@ -13,11 +13,18 @@ import java.util.Scanner;
 
 public class View {
     private Controller controller;
-
+    /**
+     * Constructor to initialize the View with the given controller.
+     *
+     * @param controller The controller instance to interact with the logic layer.
+     */
     public View(Controller controller) {
         this.controller = controller;
     }
-
+    /**
+     * Main method to handle user input and process commands.
+     * It continuously takes user input, processes it and calls appropriate controller methods.
+     */
     public void processInput() {
         Scanner scanner = new Scanner(System.in);
         try {
@@ -54,7 +61,7 @@ public class View {
                     if (!Files.exists(filePath)) {
                         System.out.println("File does not exist: " + path);
                     }
-                    controller.ProcessFile(filePath,this,type);
+                    controller.ProcessFile(filePath,type);
                     type = "";
                 }
                 else {
@@ -67,18 +74,26 @@ public class View {
             scanner.close();
         }
     }
+
+    /**
+     * Executes the correct operation based on the given type and input expression.
+     *
+     * @param type The type of number expressions (int, natural, integer, rational).
+     * @param input The mathematical expression to evaluate.
+     * @throws IOException If there is an error processing the input.
+     */
     private void ExecuteCorrectType(String type,String input) throws IOException {
         if (type.equals("int")) {
-            int outputResult = controller.ProcessIntInput(input, this);
+            int outputResult = controller.ProcessIntInput(input);
             System.out.println("Result: " + outputResult);
         }else if (type.equals("natural")) {
-            Natural outputResult = controller.ProcessNaturalInput(input, this);
+            Natural outputResult = controller.ProcessNaturalInput(input);
             System.out.println("Result: " + outputResult.ToString());
         }else if (type.equals("integer")) {
-            Integer outputResult = controller.ProcessIntegerInput(input, this);
+            Integer outputResult = controller.ProcessIntegerInput(input);
             System.out.println("Result: " + outputResult.ToString());
         }else if (type.equals("rational")) {
-            Rational outputResult = controller.ProcessRationalInput(input, this);
+            Rational outputResult = controller.ProcessRationalInput(input);
             System.out.println("Result: " + outputResult.ToString());
         }
 

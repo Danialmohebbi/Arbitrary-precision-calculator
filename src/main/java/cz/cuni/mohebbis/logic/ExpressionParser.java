@@ -2,6 +2,7 @@ package cz.cuni.mohebbis.logic;
 
 import cz.cuni.mohebbis.logic.exceptions.FormatException;
 import cz.cuni.mohebbis.logic.expressions.*;
+import cz.cuni.mohebbis.logic.interfaces.IExpression;
 import cz.cuni.mohebbis.logic.numbers.Natural;
 import cz.cuni.mohebbis.logic.numbers.Rational;
 import java.io.IOException;
