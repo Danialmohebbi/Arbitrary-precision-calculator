@@ -1,9 +1,6 @@
 package cz.cuni.mohebbis.logic.numbers;
 
 import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
-import cz.cuni.mohebbis.logic.exceptions.InvalidDigitException;
-
-import java.math.BigInteger;
 
 public class Natural {
     public int[] blocks;

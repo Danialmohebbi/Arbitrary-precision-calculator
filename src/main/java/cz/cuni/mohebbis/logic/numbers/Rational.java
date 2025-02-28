@@ -22,7 +22,9 @@ public class Rational {
         Integer s = other.denominator;
 
         Integer newNumerator = (p.Multiply(s)).Add(q.Multiply(r));
-        Integer newDenominator = (q.Multiply(r));
+        System.out.println("newNumerator = " + newNumerator.ToString());
+        Integer newDenominator = (q.Multiply(s));
+        System.out.println("newDenominator = " + newDenominator.ToString());
 
         return new Rational(newNumerator, newDenominator);
     }

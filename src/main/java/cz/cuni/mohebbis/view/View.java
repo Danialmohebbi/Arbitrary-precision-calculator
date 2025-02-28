@@ -3,6 +3,7 @@ package cz.cuni.mohebbis.view;
 import cz.cuni.mohebbis.Program.Controller;
 import cz.cuni.mohebbis.logic.numbers.Integer;
 import cz.cuni.mohebbis.logic.numbers.Natural;
+import cz.cuni.mohebbis.logic.numbers.Rational;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -75,6 +76,9 @@ public class View {
             System.out.println("Result: " + outputResult.ToString());
         }else if (type.equals("integer")) {
             Integer outputResult = controller.ProcessIntegerInput(input, this);
+            System.out.println("Result: " + outputResult.ToString());
+        }else if (type.equals("rational")) {
+            Rational outputResult = controller.ProcessRationalInput(input, this);
             System.out.println("Result: " + outputResult.ToString());
         }
 

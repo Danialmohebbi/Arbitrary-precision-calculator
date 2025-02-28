@@ -3,6 +3,7 @@ package cz.cuni.mohebbis.logic;
 import cz.cuni.mohebbis.logic.exceptions.FormatException;
 import cz.cuni.mohebbis.logic.expressions.*;
 import cz.cuni.mohebbis.logic.numbers.Natural;
+import cz.cuni.mohebbis.logic.numbers.Rational;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.io.IOException;
@@ -39,7 +40,12 @@ public class ExpressionParser<T> {
             throw new FormatException("Invalid Formula: Expression must start with an operator");
         }
 
-
+        if (type == Rational.class && token.contains("/")) {
+            String[] input = token.split("/");
+            Rational r = new Rational(new cz.cuni.mohebbis.logic.numbers.Integer(Integer.parseInt(input[0])),new cz.cuni.mohebbis.logic.numbers.Integer(Integer.parseInt(input[1])));
+            System.out.println(r.ToString());
+            return (IExpression<T>) new ConstantExpression<Rational>(r);
+        }
         if (isInteger(token)) {
             if (type == Integer.class) {
                 return (IExpression<T>) new ConstantExpression<Integer>(Integer.parseInt(token));
@@ -68,7 +74,7 @@ public class ExpressionParser<T> {
                 left = parse();
                 right = parse();
                 return new MultiplyExpression<T>(left, right);
-            case "/":
+            case "\\" :
                 left = parse();
                 right = parse();
                 return new DivisionExpression<T>(left, right);
