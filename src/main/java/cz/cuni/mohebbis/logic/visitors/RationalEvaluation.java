@@ -3,7 +3,6 @@ package cz.cuni.mohebbis.logic.visitors;
 import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
 import cz.cuni.mohebbis.logic.expressions.*;
 import cz.cuni.mohebbis.logic.interfaces.IExpressionVisiter;
-import cz.cuni.mohebbis.logic.numbers.Natural;
 import cz.cuni.mohebbis.logic.numbers.Rational;
 
 public class RationalEvaluation implements IExpressionVisiter<Rational> {

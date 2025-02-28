@@ -4,7 +4,6 @@ import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
 import cz.cuni.mohebbis.logic.expressions.*;
 import cz.cuni.mohebbis.logic.interfaces.IExpressionVisiter;
 import cz.cuni.mohebbis.logic.numbers.Integer;
-import cz.cuni.mohebbis.logic.numbers.Natural;
 
 public class IntegerEvaluation implements IExpressionVisiter<Integer> {
     private Integer _result;

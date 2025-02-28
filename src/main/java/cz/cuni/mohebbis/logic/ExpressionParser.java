@@ -4,12 +4,7 @@ import cz.cuni.mohebbis.logic.exceptions.FormatException;
 import cz.cuni.mohebbis.logic.expressions.*;
 import cz.cuni.mohebbis.logic.numbers.Natural;
 import cz.cuni.mohebbis.logic.numbers.Rational;
-import jdk.jshell.spi.ExecutionControl;
-
 import java.io.IOException;
-import java.io.StringReader;
-import java.util.concurrent.ForkJoinPool;
-
 import static cz.cuni.mohebbis.logic.utilities.Int.isInteger;
 
 public class ExpressionParser<T> {
