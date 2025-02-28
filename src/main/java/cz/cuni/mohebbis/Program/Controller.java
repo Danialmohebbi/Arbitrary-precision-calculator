@@ -109,7 +109,7 @@ public class Controller {
         Path outputPath = Paths.get((new File(String.valueOf(inputFile)).getName() + "_output.txt")); // New output file
 
         List<String> lines = Files.readAllLines(inputFile);
-        List<String> processedLines = lines.parallelStream()
+        List<String> processedLines = lines.stream().parallel()
                 .map(line -> {
                     try {
                         return processLine(line,type);
