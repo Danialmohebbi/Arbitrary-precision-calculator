@@ -110,7 +110,22 @@ public class RationalTest {
         assertTrue(num3.ToString().equals("8/13"));
 
     }
+    @Test
+    public void NegateSmallNumber_Test() {
+        Rational num1 = new Rational(new Integer(12).Negate(),new Integer(13));
 
+        assertTrue(num1.Negate().ToString().equals("12/13"));
+
+    }
+
+    @Test
+    public void NegateLargeNumber_Test() {
+        Rational num1 = new Rational(new Integer(java.lang.Integer.MAX_VALUE),new Integer(7));
+        Rational num3 = num1.Add(num1).Negate();
+
+        assertTrue(num3.ToString().equals("-4294967294/7"));
+
+    }
     @Test
     public void DivisiontTwoLargeNumbers_Test() {
         Rational num1 = new Rational(new Integer(java.lang.Integer.MAX_VALUE), new Integer(13));

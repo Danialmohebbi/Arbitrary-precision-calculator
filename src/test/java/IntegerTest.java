@@ -44,6 +44,27 @@ public class IntegerTest {
         assertTrue(num3.ToString().equals("4611686014132420607"));
     }
 
+
+    @Test
+    public void NegateSmallNumber_Test() {
+        Integer num1 = new Integer(false,new Natural(12));
+        Integer num2 = new Integer(true,new Natural(13));
+
+        Integer num3 = num1.Add(num2).Negate();
+
+        assertTrue(num3.ToString().equals("1"));
+
+    }
+
+    @Test
+    public void NegateLargeNumber_Test() {
+        Integer num1 = new Integer(false,new Natural(java.lang.Integer.MAX_VALUE));
+        Integer num3 = num1.Add(num1).Negate();
+
+        assertTrue(num3.ToString().equals("-4294967294"));
+
+    }
+
     @Test
     public void MultiplyTwoSmallNumbers_Test() {
         Integer num1 = new Integer(false,new Natural(12));
