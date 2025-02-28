@@ -6,9 +6,11 @@ import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
 import cz.cuni.mohebbis.logic.exceptions.FormatException;
 import cz.cuni.mohebbis.logic.numbers.Natural;
 import cz.cuni.mohebbis.logic.numbers.Integer;
+import cz.cuni.mohebbis.logic.numbers.Rational;
 import cz.cuni.mohebbis.logic.visitors.IntEvaluation;
 import cz.cuni.mohebbis.logic.visitors.IntegerEvaluation;
 import cz.cuni.mohebbis.logic.visitors.NaturalEvaluation;
+import cz.cuni.mohebbis.logic.visitors.RationalEvaluation;
 import cz.cuni.mohebbis.view.View;
 
 import java.io.File;
@@ -58,6 +60,18 @@ public class Controller {
         expression.Accept(eval);
         return eval.GetResult();
     }
+
+    public Rational ProcessRationalInput(String input, View view) throws IOException,FormatException{
+        input = input.substring(1).trim();
+        ExpressionParser<Rational> parser = new ExpressionParser<Rational>();
+        RationalEvaluation eval = new RationalEvaluation();
+        parser.ParseExpression(input,Rational.class);
+        IExpression<Rational> expression = parser.parse();
+        expression.Accept(eval);
+
+        return eval.GetResult();
+    }
+
     public void ProcessFile(Path inputFile, View view,String type) throws IOException {
         Path outputPath = Paths.get((new File(String.valueOf(inputFile)).getName() + "_output.txt")); // New output file
 
@@ -85,6 +99,9 @@ public class Controller {
         }else if (type.equals("integer")) {
             Integer result = ProcessIntegerInput(line,view);
             return "Result: " + result.ToString();
+        }else if (type.equals("rational")) {
+            Rational num = ProcessRationalInput(line,view);
+            return "Result: " + num.ToString();
         }
         return "";
     }
