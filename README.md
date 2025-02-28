@@ -45,6 +45,7 @@ where `<type>` can be one of the following:
    Enter expression (or 'exit' to quit): = ~ 1
    Result: -1
    ```
+   **Note** when initializing numbers use numbers `<= java.lang.int.MAXVALUE`
 3. **Process Files**: Additionally, using the terminal one can process files by writing:
 
    ```bash
