@@ -62,3 +62,4 @@ where `<type>` can be one of the following:
 1. Implementation of `Z_p` numbers, where `p` is a prime.
 2. Implementation of matricies and their computations.
 3. Implementation of a GUI.
+4. redesign of the numbers.
