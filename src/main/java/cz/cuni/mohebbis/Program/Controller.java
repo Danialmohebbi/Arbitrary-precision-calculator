@@ -10,7 +10,9 @@ import cz.cuni.mohebbis.logic.numbers.Rational;
 import cz.cuni.mohebbis.logic.visitors.*;
 import cz.cuni.mohebbis.view.View;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -187,5 +189,14 @@ public class Controller {
         }
 
         return "";
+    }
+
+    public void logInfo(String line) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("log.txt", true))) {
+            writer.append(line + "\n");
+            // You can append more lines as needed
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
