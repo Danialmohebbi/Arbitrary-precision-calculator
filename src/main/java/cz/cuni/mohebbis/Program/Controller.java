@@ -7,10 +7,7 @@ import cz.cuni.mohebbis.logic.exceptions.FormatException;
 import cz.cuni.mohebbis.logic.numbers.Natural;
 import cz.cuni.mohebbis.logic.numbers.Integer;
 import cz.cuni.mohebbis.logic.numbers.Rational;
-import cz.cuni.mohebbis.logic.visitors.IntEvaluation;
-import cz.cuni.mohebbis.logic.visitors.IntegerEvaluation;
-import cz.cuni.mohebbis.logic.visitors.NaturalEvaluation;
-import cz.cuni.mohebbis.logic.visitors.RationalEvaluation;
+import cz.cuni.mohebbis.logic.visitors.*;
 import cz.cuni.mohebbis.view.View;
 
 import java.io.File;
@@ -98,6 +95,43 @@ public class Controller {
         return eval.GetResult();
     }
     /**
+     * Process input string as a Float expression and returns the evaluated result.
+     *
+     * @param input The string containing the mathematical expression.
+     * @return The evaluated result of the Float expression.
+     * @throws IOException If an I/O error occurs.
+     * @throws FormatException If the input expression is not properly formatted.
+     * @throws DivisionByZeroException If the expression contains a division by zero.
+     */
+    public Float ProcessFloatInput(String input) throws IOException,FormatException{
+        input = input.substring(1).trim();
+        ExpressionParser<Float> parser = new ExpressionParser<Float>();
+        FloatEvaluation eval = new FloatEvaluation();
+        parser.ParseExpression(input,Float.class);
+        IExpression<Float> expression = parser.parse();
+        expression.Accept(eval);
+        return eval.GetResult();
+    }
+    /**
+     * Process input string as a Double expression and returns the evaluated result.
+     *
+     * @param input The string containing the mathematical expression.
+     * @return The evaluated result of the Double expression.
+     * @throws IOException If an I/O error occurs.
+     * @throws FormatException If the input expression is not properly formatted.
+     * @throws DivisionByZeroException If the expression contains a division by zero.
+     */
+    public Double ProcessDoubleInput(String input) throws IOException,FormatException{
+        input = input.substring(1).trim();
+        ExpressionParser<Double> parser = new ExpressionParser<>();
+        DoubleEvaluation eval = new DoubleEvaluation();
+        parser.ParseExpression(input,Double.class);
+        IExpression<Double> expression = parser.parse();
+        expression.Accept(eval);
+        return eval.GetResult();
+    }
+
+    /**
      * Process an input file and evaluates each line based on the specified type.
      *
      * @param inputFile The path to the input file containing mathematical expressions.
@@ -144,7 +178,14 @@ public class Controller {
         }else if (type.equals("rational")) {
             Rational num = ProcessRationalInput(line);
             return "Result: " + num.ToString();
+        }else if (type.equals("float")) {
+            Float result = ProcessFloatInput(line);
+            return "Result: " + result.toString();
+        }else if (type.equals("double")) {
+            Double result = ProcessDoubleInput(line);
+            return "Result: " + result.toString();
         }
+
         return "";
     }
 }

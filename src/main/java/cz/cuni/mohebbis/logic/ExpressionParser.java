@@ -6,7 +6,11 @@ import cz.cuni.mohebbis.logic.interfaces.IExpression;
 import cz.cuni.mohebbis.logic.numbers.Natural;
 import cz.cuni.mohebbis.logic.numbers.Rational;
 import java.io.IOException;
-import static cz.cuni.mohebbis.logic.utilities.Int.isInteger;
+import static cz.cuni.mohebbis.logic.utilities.Helper.isInteger;
+import static cz.cuni.mohebbis.logic.utilities.Helper.isDouble;
+import static cz.cuni.mohebbis.logic.utilities.Helper.isFloat;
+
+
 
 public class ExpressionParser<T> {
     private String[] _tokens;
@@ -41,6 +45,14 @@ public class ExpressionParser<T> {
             Rational r = new Rational(new cz.cuni.mohebbis.logic.numbers.Integer(Integer.parseInt(input[0])),new cz.cuni.mohebbis.logic.numbers.Integer(Integer.parseInt(input[1])));
             return (IExpression<T>) new ConstantExpression<Rational>(r);
         }
+        if (type == Double.class && isDouble(token)) {
+            return (IExpression<T>) new ConstantExpression<Double>(Double.parseDouble(token));
+        }
+
+        if (type == Float.class && isFloat(token)) {
+            return (IExpression<T>) new ConstantExpression<Float>(Float.parseFloat(token));
+        }
+
         if (isInteger(token)) {
             if (type == Integer.class) {
                 return (IExpression<T>) new ConstantExpression<Integer>(Integer.parseInt(token));
@@ -49,7 +61,9 @@ public class ExpressionParser<T> {
             }else if(type == cz.cuni.mohebbis.logic.numbers.Integer.class){
                 cz.cuni.mohebbis.logic.numbers.Integer a = new cz.cuni.mohebbis.logic.numbers.Integer(false,new Natural(Integer.parseInt(token)));
                 return (IExpression<T>) new ConstantExpression<cz.cuni.mohebbis.logic.numbers.Integer>(a);
-            }else {
+            }
+
+            else {
                 throw new IllegalArgumentException("Unsupported type: " + type);
             }
         }

@@ -95,6 +95,12 @@ public class View {
         }else if (type.equals("rational")) {
             Rational outputResult = controller.ProcessRationalInput(input);
             System.out.println("Result: " + outputResult.ToString());
+        }else if (type.equals("float")) {
+            Float outputResult = controller.ProcessFloatInput(input);
+            System.out.println("Result: " + outputResult);
+        }else if (type.equals("double")) {
+            Double outputResult = controller.ProcessDoubleInput(input);
+            System.out.println("Result: " + outputResult);
         }
 
     }
