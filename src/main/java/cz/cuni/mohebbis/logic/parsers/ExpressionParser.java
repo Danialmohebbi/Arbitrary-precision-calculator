@@ -1,15 +1,14 @@
-package cz.cuni.mohebbis.logic;
+package cz.cuni.mohebbis.logic.parsers;
 
 import cz.cuni.mohebbis.logic.exceptions.FormatException;
 import cz.cuni.mohebbis.logic.expressions.*;
 import cz.cuni.mohebbis.logic.interfaces.IExpression;
 import cz.cuni.mohebbis.logic.numbers.Natural;
 import cz.cuni.mohebbis.logic.numbers.Rational;
-import java.io.IOException;
-import static cz.cuni.mohebbis.logic.utilities.Helper.isInteger;
-import static cz.cuni.mohebbis.logic.utilities.Helper.isDouble;
-import static cz.cuni.mohebbis.logic.utilities.Helper.isFloat;
 
+import java.io.IOException;
+
+import static cz.cuni.mohebbis.logic.utilities.Helper.*;
 
 
 public class ExpressionParser<T> {
@@ -18,7 +17,7 @@ public class ExpressionParser<T> {
     private int _index;
     private Class<T> type;
 
-    public void ParseExpression(String expression,Class<T> type) {
+    public  ExpressionParser(String expression,Class<T> type) {
         _tokens = expression.trim().split("\\s+");this.type=type;
     }
 

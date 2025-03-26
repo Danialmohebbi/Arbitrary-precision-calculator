@@ -1,6 +1,6 @@
 package cz.cuni.mohebbis.Program;
 
-import cz.cuni.mohebbis.logic.ExpressionParser;
+import cz.cuni.mohebbis.logic.parsers.InfixExpressionParser;
 import cz.cuni.mohebbis.logic.interfaces.*;
 import cz.cuni.mohebbis.logic.exceptions.DivisionByZeroException;
 import cz.cuni.mohebbis.logic.exceptions.FormatException;
@@ -33,9 +33,8 @@ public class Controller {
      */
     public int ProcessIntInput(String input) throws IOException, FormatException, DivisionByZeroException {
         input = input.substring(1).trim();
-        ExpressionParser<java.lang.Integer> parser = new ExpressionParser<java.lang.Integer>();
+        InfixExpressionParser<java.lang.Integer> parser = new InfixExpressionParser(input,java.lang.Integer.class);
         IntEvaluation eval = new IntEvaluation();
-        parser.ParseExpression(input,java.lang.Integer.class);
         IExpression<java.lang.Integer> expression = parser.parse();
         expression.Accept(eval);
         return eval.GetResult();
@@ -51,9 +50,8 @@ public class Controller {
      */
     public Natural ProcessNaturalInput(String input) throws IOException, FormatException {
         input = input.substring(1).trim();
-        ExpressionParser<Natural> parser = new ExpressionParser<Natural>();
+        InfixExpressionParser<Natural> parser = new InfixExpressionParser<Natural>(input,Natural.class);
         NaturalEvaluation eval = new NaturalEvaluation();
-        parser.ParseExpression(input,Natural.class);
 
         IExpression<Natural> expression = parser.parse();
         expression.Accept(eval);
@@ -70,9 +68,8 @@ public class Controller {
      */
     public Integer ProcessIntegerInput(String input) throws IOException,FormatException{
         input = input.substring(1).trim();
-        ExpressionParser<Integer> parser = new ExpressionParser<Integer>();
+        InfixExpressionParser<Integer> parser = new InfixExpressionParser<Integer>(input,Integer.class);
         IntegerEvaluation eval = new IntegerEvaluation();
-        parser.ParseExpression(input,Integer.class);
         IExpression<Integer> expression = parser.parse();
         expression.Accept(eval);
         return eval.GetResult();
@@ -88,9 +85,8 @@ public class Controller {
      */
     public Rational ProcessRationalInput(String input) throws IOException,FormatException{
         input = input.substring(1).trim();
-        ExpressionParser<Rational> parser = new ExpressionParser<Rational>();
+        InfixExpressionParser<Rational> parser = new InfixExpressionParser<Rational>(input,Rational.class);
         RationalEvaluation eval = new RationalEvaluation();
-        parser.ParseExpression(input,Rational.class);
         IExpression<Rational> expression = parser.parse();
         expression.Accept(eval);
 
@@ -107,9 +103,8 @@ public class Controller {
      */
     public Float ProcessFloatInput(String input) throws IOException,FormatException{
         input = input.substring(1).trim();
-        ExpressionParser<Float> parser = new ExpressionParser<Float>();
+        InfixExpressionParser<Float> parser = new InfixExpressionParser<Float>(input,Float.class);
         FloatEvaluation eval = new FloatEvaluation();
-        parser.ParseExpression(input,Float.class);
         IExpression<Float> expression = parser.parse();
         expression.Accept(eval);
         return eval.GetResult();
@@ -125,9 +120,8 @@ public class Controller {
      */
     public Double ProcessDoubleInput(String input) throws IOException,FormatException{
         input = input.substring(1).trim();
-        ExpressionParser<Double> parser = new ExpressionParser<>();
+        InfixExpressionParser<Double> parser = new InfixExpressionParser<>(input,Double.class);
         DoubleEvaluation eval = new DoubleEvaluation();
-        parser.ParseExpression(input,Double.class);
         IExpression<Double> expression = parser.parse();
         expression.Accept(eval);
         return eval.GetResult();
