@@ -41,7 +41,6 @@ public class Lexer {
         }
 
         if (!Arrays.stream(ops).toList().contains(token)) {
-            System.out.println(token);
             throw new FormatException("Invalid Formula");
         }
 

@@ -64,7 +64,6 @@ public class View {
                     } catch (Exception e) {
                         System.out.println("Error processing input: " + e.getMessage());
                         controller.logInfo("in: " + input);
-                        e.printStackTrace();
                         controller.logInfo("out: " + "Error processing input: " + e.getMessage());
                     }
                 }else if (input.startsWith("Process File: ")) {
