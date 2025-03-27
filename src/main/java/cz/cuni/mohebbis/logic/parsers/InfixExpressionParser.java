@@ -19,7 +19,6 @@ public class InfixExpressionParser<T> {
 
     public IExpression<T> parse() {
         String token = lexer.nextToken();
-        System.out.println(token);
 
         if (token.equals("~")) {
             IExpression<T> next = parse();
